@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">Criar uma Nova Conta</h2>
+        <p class="card-text">Registe-se para obter acesso à sua chave de API pessoal.</p>
+        <form method="POST" action="{{ url_for('register') }}">
+            <div class="mb-3">
+                <label for="nome_cliente" class="form-label">Nome de Utilizador</label>
+                <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Endereço de Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="senha" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="senha" name="senha" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Criar Conta</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

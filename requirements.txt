@@ -1,0 +1,14 @@
+﻿# Ficheiro: requirements.txt
+
+# --- Dependências da Aplicação ---
+Flask
+redis
+bcrypt
+pycryptodome
+requests
+waitress
+Flask-Limiter
+
+# --- Dependências de Desenvolvimento e Teste ---
+pytest
+requests

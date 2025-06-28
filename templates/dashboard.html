@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">Bem-vindo, {{ user.nome_cliente }}!</h2>
+        <p class="card-text">Este é o seu painel de controlo. A sua chave de API secreta está abaixo.</p>
+        
+        <div class="mt-4">
+            <h5>Sua Chave de API Secreta</h5>
+            <p><strong>Aviso:</strong> Trate esta chave como uma senha. Não a partilhe publicamente.</p>
+            <p class="api-key" id="apiKey">{{ user.chave_api }}</p>
+            <button class="btn btn-sm btn-secondary mt-2" onclick="copyToClipboard()">Copiar Chave</button>
+        </div>
+        
+        <hr class="my-4">
+        
+        <div class="mt-4">
+            <h5>Zona de Perigo</h5>
+            <p>Se suspeita que a sua chave de API foi comprometida, pode gerar uma nova. A sua chave antiga será permanentemente invalidada.</p>
+            <form method="POST" action="{{ url_for('regenerate_key') }}" onsubmit="return confirm('Tem a certeza absoluta? A sua chave de API antiga deixará de funcionar imediatamente.');">
+                <button type="submit" class="btn btn-danger">Regenerar Nova Chave de API</button>
+            </form>
+            
+            <h6 class="mt-4">Apagar Conta Permanentemente</h6>
+            <p>Esta ação não pode ser desfeita. Todos os seus dados, incluindo a sua chave de API, serão permanentemente eliminados.</p>
+            <form method="POST" action="{{ url_for('delete_account') }}" onsubmit="return confirm('Esta ação é irreversível. Tem a certeza que quer apagar a sua conta?');">
+                <div class="mb-3">
+                    <label for="senha_confirm" class="form-label">Para confirmar, por favor, insira a sua senha:</label>
+                    <input type="password" class="form-control" id="senha_confirm" name="senha_confirm" required>
+                </div>
+                <button type="submit" class="btn btn-outline-danger">Apagar a Minha Conta</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyToClipboard() {
+    navigator.clipboard.writeText(document.getElementById('apiKey').innerText).then(function() {
+        alert('Chave de API copiada para a área de transferência!');
+    }, function(err) {
+        alert('Erro ao copiar a chave: ', err);
+    });
+}
+</script>
+{% endblock %}

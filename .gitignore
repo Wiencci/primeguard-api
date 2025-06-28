@@ -1,0 +1,20 @@
+# Ficheiros compilados do Python
+__pycache__/
+*.pyc
+*.egg-info/
+
+# Ficheiros de banco de dados e credenciais locais
+# NUNCA envie estes ficheiros para o GitHub!
+clientes.db
+credentials.ini
+
+# Ficheiros de ambiente virtual
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Ficheiros de configuração de editores e IDEs
+.vscode/
+.idea/

@@ -1,0 +1,45 @@
+# docker-compose.yml
+# Ficheiro de orquestração para os serviços da PrimeGuard API.
+
+# A versão do ficheiro de compose. '3.8' é uma versão moderna e estável.
+version: '3.8'
+
+# Aqui definimos todos os serviços (contentores) que compõem a nossa aplicação.
+services:
+
+  # 1. O serviço da nossa API
+  api:
+    # 'build: .' diz ao Docker para construir a imagem a partir do Dockerfile
+    # que está na pasta atual (.).
+    build: .
+    # 'ports' mapeia uma porta do seu PC para uma porta dentro do contentor.
+    # Neste caso, a porta 5000 do seu PC será ligada à porta 5000 da nossa API.
+    ports:
+      - "5000:5000"
+    # 'volumes' cria uma ligação "ao vivo" entre a sua pasta local e a pasta
+    # dentro do contentor. Qualquer alteração que você fizer no seu código
+    # será refletida instantaneamente dentro do contentor, sem precisar de o reconstruir.
+    # Isto é fantástico para o desenvolvimento.
+    volumes:
+      - .:/app
+    # 'depends_on' diz a este serviço para esperar que o serviço 'redis'
+    # esteja pronto antes de ele próprio iniciar. Isto garante que a nossa API
+    # não tente conectar-se a um Redis que ainda não está no ar.
+    depends_on:
+      - redis
+    # 'environment' permite-nos definir variáveis de ambiente dentro do contentor.
+    # Podemos usá-las para passar configurações, como chaves secretas ou modos de debug.
+    environment:
+      - FLASK_DEBUG=1
+      # A nossa API irá procurar o Redis pelo nome do serviço 'redis', não 'localhost'.
+      - REDIS_HOST=redis
+
+  # 2. O serviço do Redis
+  redis:
+    # 'image' diz ao Docker para ir buscar uma imagem oficial e pronta a usar
+    # do Redis a partir do Docker Hub. Não precisamos de construir nada.
+    image: "redis:alpine"
+    # 'ports' mapeia a porta do Redis para o seu PC, o que é útil para
+    # ferramentas de depuração, mas não estritamente necessário para a aplicação funcionar.
+    ports:
+      - "6379:6379"

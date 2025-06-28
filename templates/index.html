@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Bem-vindo à PrimeGuard API</h1>
+        <p class="col-md-8 fs-4">Uma solução de criptografia híbrida que combina segurança de nível industrial com um método inovador de troca de chaves.</p>
+        <p>Crie uma conta para obter a sua chave de API ou faça login para aceder ao seu painel.</p>
+        <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">Começar Agora</a>
+        <a href="{{ url_for('login') }}" class="btn btn-secondary btn-lg">Fazer Login</a>
+    </div>
+</div>
+{% endblock %}
